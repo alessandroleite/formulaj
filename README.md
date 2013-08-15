@@ -1,13 +1,15 @@
 FormulaJ
 =======
 
-Usage
------
 
+<h2 id="usage">Usage</h2>
 
-	ExpressionBuilder.<Decimal> newMathExpression(expression.getExpression()).withVariable("a", Decimal.from(7))
-                    .withVariable("b", Decimal.from(8)).withVariable("c", Decimal.from(9)).withVariable("d", Decimal.from(-8))
-                    .withVariable("n", Decimal.from(2)).evaluate(new ExpressionEvaluator<Decimal>());
+	ExpressionBuilder.<Decimal> newMathExpression(expression.getExpression())
+	                 .withVariable("a", Decimal.from(7))
+	                 .withVariable("b", Decimal.from(8))
+	                 .withVariable("c", Decimal.from(9))
+	                 .withVariable("d", Decimal.from(-8))
+	                 .withVariable("n", Decimal.from(2)).evaluate(new ExpressionEvaluator<Decimal>());
                     
 or
 
@@ -15,8 +17,8 @@ or
 	
 	
 	
-License
------
+
+<h2 id="license">License</h2>
 
 Copyright (C) 2013 Contributors.
  
