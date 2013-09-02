@@ -36,7 +36,9 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -252,7 +254,7 @@ public final class ClassUtils
      *            The class to be used as the domain.
      * @param packageName
      *            The package name.
-     * @return A read only {@link List} with the subclasses of the given {@link Class} or empyt if none was found.
+     * @return A read only {@link List} with the subclasses of the given {@link Class} or empty if none was found.
      */
     public static List<Class> findSubclasses(Class<?> superClassOrInterface, Class<?> codeSource, String packageName)
     {
@@ -332,9 +334,9 @@ public final class ClassUtils
             {
                 clazz = fileNameToClass(ze.getName(), packageName);
             }
-            catch (ClassNotFoundException | NoClassDefFoundError ignore)
+            catch (ClassNotFoundException | NoClassDefFoundError ex)
             {
-                // do nothing
+                Logger.getLogger(ClassUtils.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
             }
 
             if (clazz != null)
@@ -410,6 +412,14 @@ public final class ClassUtils
         return s;
     }
 
+    /**
+     * 
+     * @param packageName The package to be analyzed.
+     * @param annotation The annotation type to filter the class. Might not be <code>null</code>.
+     * @return The classes in the given package that have the {@code annotation}. 
+     * @throws IOException If it's impossible to access the class file.
+     * @throws ClassNotFoundException If there is unresolved dependency.
+     */
     public static Class<?>[] getClassesWith(String packageName, Class<? extends Annotation> annotation) throws IOException, ClassNotFoundException
     {
 
@@ -434,6 +444,13 @@ public final class ClassUtils
         return result.toArray(new Class<?>[result.size()]);
     }
 
+    /**
+     * @param classLoader The {@link ClassLoader} to be used.
+     * @param packageName The class package's name.
+     * @return The class of the given package in the {@link ClassLoader}.
+     * @throws IOException If it's impossible to access the class file.
+     * @throws ClassNotFoundException If there is unresolved dependency.
+     */
     public static Class<?>[] getClasses(ClassLoader classLoader, String packageName) throws IOException, ClassNotFoundException
     {
 
@@ -463,11 +480,18 @@ public final class ClassUtils
         return null;
     }
 
+    /**
+     * Returns all classes of a given package found in {@code directory}.
+     * @param directory The directory to visit and get the classes. Might not be <code>null</code>.
+     * @param packageName The package to filter the classes. 
+     * @return A {@link List} with the classes found.
+     * @throws ClassNotFoundException If there is unresolved dependency.
+     */
     private static List<Class<?>> findClasses(File directory, String packageName) throws ClassNotFoundException
     {
         List<Class<?>> classes = new ArrayList<Class<?>>();
 
-        if (!directory.exists())
+        if (!Objects.requireNonNull(directory).exists())
         {
             return classes;
         }
@@ -485,9 +509,16 @@ public final class ClassUtils
                 classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
             }
         }
-        return classes;
+        return Collections.unmodifiableList(classes);
     }
 
+    /**
+     * Returns all class of a given package.
+     * @param packageName The name of the package. Might not be <code>null</code> or empty.
+     * @return An array with the classes found.
+     * @throws IOException If it's impossible to access the class file.
+     * @throws ClassNotFoundException If there is unresolved dependency.
+     */
     public static Class<?>[] getClasses(String packageName) throws IOException, ClassNotFoundException
     {
         return getClasses(getDefaultClassLoader(), packageName);
@@ -528,8 +559,10 @@ public final class ClassUtils
      *            The type of the given class.
      * @return An instance of the given class.
      */
+    @SuppressWarnings("unchecked")
     public static <T> T newInstanceForName(Class<T> clazz, Object... args)
     {
+        T instance = null;
         if (args == null || args.length == 0)
         {
             Constructor<T> constructor;
@@ -537,8 +570,7 @@ public final class ClassUtils
             {
                 constructor = clazz.getConstructor();
                 constructor.setAccessible(true);
-                
-                return constructor.newInstance();
+                instance = constructor.newInstance();
             }
             catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException | InstantiationException e)
             {
@@ -547,9 +579,31 @@ public final class ClassUtils
         }
         else
         {
-            //FIXME
-//            return new Mirror().on(clazz).invoke().constructor().withArgs(args);
-            return null;
+            external: for (Constructor constructor : clazz.getConstructors())
+            {
+                Class[] parameterTypes = constructor.getParameterTypes();
+                if (parameterTypes != null && parameterTypes.length == args.length)
+                {
+                    for (int i = 0; i < parameterTypes.length; i++)
+                    {
+                        if (!parameterTypes[i].isAssignableFrom(args[i].getClass()))
+                        {
+                            continue external;
+                        }
+                    }
+                    
+                    try
+                    {
+                        constructor.setAccessible(true);
+                        instance = (T) constructor.newInstance(args);
+                    }
+                    catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+                    {
+                        throw new RuntimeException(e.getMessage(), e);
+                    }
+                }
+            }
         }
+        return instance;
     }
 }
