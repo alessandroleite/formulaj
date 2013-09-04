@@ -139,32 +139,25 @@ public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
     }
 
     /**
-     * Transforms a {@link List} of T in an array of E. The default implementation assumes that E is a {@link BigDecimal}.
+     * Transforms a {@link List} of T in an array of E. The default implementation assumes that E is a {@link Decimal}.
      * 
      * @param arguments
-     *            The {@link List} of computable arguments that must be translated to an array of {@link BigDecimal}.
+     *            The {@link List} of computable arguments that must be translated to an array of {@link Decimal}.
      * @param <R>
      *            The {@link Computable} value type.
      * @param <T>
      *            A {@link Computable} argument.
-     * @return An array with the arguments transformed in {@link BigDecimal}.
+     * @return An array with the arguments transformed in {@link Decimal}.
      */
     @SuppressWarnings("unchecked")
     protected <R, T extends Computable<R>> E [] transform(List<T> arguments)
     {
-//        List<R> args = Lists.transform(arguments, new com.google.common.base.Function<Computable<R>, R>()
-//        {
-//            public R apply(Computable<R> input)
-//            {
-//                return input.getValue();
-//            }
-//        });
-        
         List<R> args = new ArrayList<>();
         
         for (Object computable : arguments)
         {
-            args.add(((Computable<R>) computable).getValue());
+            // Oh my Gosh, what is this? ;)
+            args.add((R) Decimal.from(((Computable<R>) computable).getValue().toString()));
         }
 
         return (E[]) args.toArray(new Decimal[args.size()]);

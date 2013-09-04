@@ -25,7 +25,6 @@ import formulaj.expression.evaluator.impl.ImplictVariableExpressionEvaluator;
 
 public final class ExpressionBuilder
 {
-
     /**
      * Private constructor.
      */
