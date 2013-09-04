@@ -24,14 +24,16 @@ FormulaJ is a multithreading Java library for evaluating mathematical expression
 
 2. ##### Usage
 
+
 	ExpressionBuilder.<Decimal> newMathExpression("a * b")
 	                 .withVariable("a", Decimal.from(7))
 	                 .withVariable("b", Decimal.from(8))
                      .evaluate();
-                    
+
 or
 
 	Decimal value = ExpressionBuilder.<Decimal> evaluate("x + y * z ^ x", 1, 2, 3);
+
 
 The variables are resolved according with their position and their name. If a variable is used more than one time in the expression, we don't need to repeat its value. In that expression we have three variables (x, y, z) and the variable _x_ appears two times in the expression. As we can see, the method was called with just three values (1,2,3). The analyzer knows that the value of _x_ is 1, _y_ is 2 and _z_ is 3.
 
@@ -45,25 +47,27 @@ The variables are resolved according with their position and their name. If a va
 	public class MyFunction extends FunctionSupport<Decimal>
 	{
 
-	    /**
-	     * Creates an instance of the {@link Pow} function.
-	     */
-	    public MyFunction()
-	    {
+		/**
+		* Creates an instance of the {@link Pow} function.
+		*/
+		public MyFunction()
+		{
 		   super(2);
-	    }
+		}
 
-	    @Override
-	    protected Decimal eval(Decimal[] arguments)
-	    {
+		@Override
+		protected Decimal eval(Decimal[] arguments)
+		{
 		   return arguments[0].times(arguments[1]);
-	    }
+		}
 	}
 
 Using the custom function
-__
+-------
     
-    Decimal value = ExpressionBuilder.<Decimal> newMathExpression("myfunction(2,3)").withFunction(new MyFunction()).evaluate();
+    Decimal value = ExpressionBuilder.<Decimal> newMathExpression("myfunction(2,3)")
+             .withFunction(new MyFunction())
+             .evaluate();
 
 
 <h2 id="contribute">How to contribute</h2>
