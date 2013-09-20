@@ -48,7 +48,7 @@ The variables are resolved according with their position and their name. If a va
 	{
 
 		/**
-		* Creates an instance of the {@link Pow} function.
+		* Creates an instance of the {@link MyFunction} function.
 		*/
 		public MyFunction()
 		{
