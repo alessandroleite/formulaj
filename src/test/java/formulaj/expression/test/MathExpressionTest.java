@@ -29,7 +29,7 @@ import formulaj.expression.UndefinedVariableException;
 import formulaj.expression.Value;
 import formulaj.expression.evaluator.impl.ExpressionEvaluator;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MathExpressionTest extends TestSupport

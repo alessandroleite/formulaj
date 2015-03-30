@@ -28,7 +28,7 @@ import formulaj.expression.parser.ExpressionParser;
 import formulaj.expression.token.MathNodeToken;
 import formulaj.expression.token.TreeVariableVisitor;
 
-public class ImplictVariableExpressionEvaluator<T> extends ExpressionEvaluator<T>
+public class ImplicitVariableExpressionEvaluator<T> extends ExpressionEvaluator<T>
 {
 
     /**
@@ -37,12 +37,12 @@ public class ImplictVariableExpressionEvaluator<T> extends ExpressionEvaluator<T
     private final Object[] implictVarValue;
 
     /**
-     * Creates an instance of the {@link ImplictVariableExpressionEvaluator}.
+     * Creates an instance of the {@link ImplicitVariableExpressionEvaluator}.
      * 
      * @param variableValues
      *            The variable values.
      */
-    public ImplictVariableExpressionEvaluator(Object... variableValues)
+    public ImplicitVariableExpressionEvaluator(Object... variableValues)
     {
         this.implictVarValue = variableValues;
     }

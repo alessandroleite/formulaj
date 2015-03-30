@@ -58,11 +58,11 @@ public final class Functions
             register((Function<?>) ClassUtils.newInstanceForName(clazz));
         }
 
-        assert !FUNCTIONS.isEmpty() : "System functions was not found!";
+        assert !FUNCTIONS.isEmpty() : "System functions were not found!";
     }
 
     /**
-     * Register a function.
+     * Registers a function.
      * 
      * @param function
      *            The function to be registered. Might not be <code>null</code> and it's required that every function has a non empty name.

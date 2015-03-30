@@ -75,15 +75,14 @@ public final class Value<T> implements Computable<T>
         {
             return true;
         }
-        if (obj == null)
+        
+        if (obj == null || getClass() != obj.getClass())
         {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
+        
         Value<?> other = (Value<?>) obj;
+        
         if (value == null)
         {
             if (other.value != null)
@@ -95,6 +94,7 @@ public final class Value<T> implements Computable<T>
         {
             return false;
         }
+        
         return true;
     }
 

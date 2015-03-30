@@ -22,7 +22,7 @@ package formulaj.expression.lexer;
 
 import formulaj.expression.token.Token;
 
-public abstract class AbstractLexer extends Lexer
+abstract class AbstractLexer extends Lexer
 {
 
     /**
@@ -31,7 +31,7 @@ public abstract class AbstractLexer extends Lexer
      * @param input
      *            The input to be analyzed.
      */
-    public AbstractLexer(String input)
+    AbstractLexer(String input)
     {
         super(input);
     }

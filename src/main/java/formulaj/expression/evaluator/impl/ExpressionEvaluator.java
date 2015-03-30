@@ -44,7 +44,7 @@ public class ExpressionEvaluator<T> implements Evaluator<Expression<T>, Value<T>
     /**
      * {@link Map} with the variables of this {@link Evaluator}. The key is the variable's name.
      */
-    private Map<String, Variable<?>> variables = new HashMap<>();
+    private final Map<String, Variable<?>> variables = new HashMap<>();
 
     @Override
     public Value<T> eval(Expression<T> expression) throws EvaluationException

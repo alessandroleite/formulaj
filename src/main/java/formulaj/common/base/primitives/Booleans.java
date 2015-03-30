@@ -56,21 +56,20 @@ public final class Booleans
      */
     public static boolean valueOf(String value)
     {
-        switch (value)
+        switch (value.toLowerCase())
         {
         case "on":
         case "yes":
         case "1":
         case "true":
         case "v":
-        case "V":
             return true;
         case "off":
         case "no":
         case "0":
         case "false":
         case "f":
-        case "F":
+        	return false;
         default:
             try
             {

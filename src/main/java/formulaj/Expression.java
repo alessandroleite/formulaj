@@ -28,6 +28,9 @@ import formulaj.expression.Variable;
 import formulaj.expression.evaluator.Evaluator;
 
 
+/**
+ * @param <T>
+ */
 public interface Expression<T>
 {
 
@@ -52,7 +55,7 @@ public interface Expression<T>
      *            The {@link Evaluator} to be used in the evaluation process.
      * @return The value after the evaluation of the given {@link Expression}.
      * @throws EvaluationException
-     *             Throws when the expression to be evaluated is not well formated. In other words, this method throws {@link EvaluationException}
+     *             Throws when the expression to be evaluated is not well formatted. In other words, this method throws {@link EvaluationException}
      *             when the expression is wrong o missing something.
      */
     Value<T> evaluate(Evaluator<Expression<T>, Value<T>> evaluator) throws EvaluationException;

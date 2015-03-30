@@ -24,7 +24,6 @@ import formulaj.expression.Decimal;
 
 public class ModulusOperator extends AbstractArithmeticalOperator
 {
-
     /**
      * Creates a {@link ModulusOperator}.
      */

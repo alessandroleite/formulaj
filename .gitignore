@@ -1,10 +1,16 @@
-target/
-bin
+
+**/target/*
+
+# Operating system's files
 *~
+.DS_Store
+
+# Eclipse
 .classpath
 .project
 .settings
-.DS_Store
-src.tar.gz
-commands.txt
 .checkstyle
+
+#IntelliJ
+.idea/**
+*.iml

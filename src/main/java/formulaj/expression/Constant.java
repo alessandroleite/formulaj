@@ -21,29 +21,27 @@
 package formulaj.expression;
 
 /**
- * This class represents a constant. A constant it's a variable that can't change its value.
+ * This class represents a constant. A constant is an immutable value.
  * 
- * @param <T>
- *            The type of this constant value.
+ * @param <ValueType> The type of this constant value.
  */
-public final class Constant<T> extends Variable<T>
+public final class Constant<ValueType> extends Variable<ValueType>
 {
-
     /**
-     * Create a new constant.
+     * Creates a constant with the given {@code name} and {@code value}.
      * 
-     * @param constName
-     *            The constant name. Might not be <code>null</code>.
-     * @param constValue
-     *            The value of this constant.
+     * @param name
+     *            constant's name. Might not be <code>null</code> or empty
+     * @param value
+     *            constant's value
      */
-    public Constant(String constName, Value<T> constValue)
+    public Constant(String name, Value<ValueType> value)
     {
-        super(constName, constValue);
+        super(name, value);
     }
 
     @Override
-    public void setValue(T newValue)
+    public void setValue(ValueType newValue)
     {
         throw new UnsupportedOperationException();
     }

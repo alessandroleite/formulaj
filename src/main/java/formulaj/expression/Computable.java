@@ -23,9 +23,9 @@ package formulaj.expression;
 public interface Computable<R>
 {
     /**
-     * Return the value.
+     * Returns a value of a computation.
      * 
-     * @return The value
+     * @return a value
      */
     R getValue();
 }

@@ -27,10 +27,9 @@ import formulaj.expression.function.Function;
 
 public interface MathExpression<T> extends Expression<T>
 {
-
     /**
-     * Returns an {@link Expression} whose value is (this / divisor); if the exact quotient cannot be represented (because it has a non-terminated
-     * decimal expansion) an {@link ArithmeticException} if thrown.
+     * Returns an {@link Expression} whose value is (this / divisor). If the exact quotient cannot be represented (because it has a non-terminated
+     * decimal expansion) an {@link ArithmeticException} exception is thrown.
      * 
      * @param divisor
      *            value by which this {@link Expression} is to be divided.
@@ -54,15 +53,15 @@ public interface MathExpression<T> extends Expression<T>
      * must returns a value in the range 0 through 999999999, inclusive. ZERO.pow(0) returns ONE.
      * 
      * @param expression
-     *            power to raise this {@link Expression} to.
-     * @return An {@link Expression} whose value is (this ^ n).
+     *            power to raise this {@link Expression} to
+     * @return an {@link Expression} whose value is (this ^ n).
      * @throws ArithmeticException
-     *             if the value of the given {@link Expression} is out of range.
+     *             if the value of the given {@link Expression} is out of range
      */
     MathExpression<T> pow(MathExpression<T> expression);
 
     /**
-     * Register a variable in the expression. Sometimes it's necessary to evaluate expression that has variables.
+     * Registers a variable in the expression. Sometimes it's necessary to evaluate an expression that has variables.
      * 
      * @param variable
      *            The variable to be used. Might not be <code>null</code>.
@@ -73,7 +72,7 @@ public interface MathExpression<T> extends Expression<T>
     <R> MathExpression<T> withVariable(Variable<R> variable);
 
     /**
-     * Register a new variable in the expression.
+     * Registers a new variable in the expression.
      * 
      * @param name
      *            The name of the variable. Might not be <code>null</code> and might starts with a letter and cannot has any whitespace.
@@ -86,7 +85,7 @@ public interface MathExpression<T> extends Expression<T>
     <R> MathExpression<T> withVariable(String name, Value<R> value);
 
     /**
-     * Register a new variable in the expression.
+     * Registers a new variable in the expression.
      * 
      * @param name
      *            The name of the variable. Might not be <code>null</code> and might starts with a letter and cannot has any whitespace.
@@ -99,7 +98,7 @@ public interface MathExpression<T> extends Expression<T>
     <R> MathExpression<T> withVariable(String name, R value);
 
     /**
-     * Evaluate this {@link MathExpression} and returns its value.
+     * Evaluates this {@link MathExpression} and returns its value.
      * 
      * @return The math expression result. It's never <code>null</code>.
      * @throws EvaluationException
@@ -108,7 +107,7 @@ public interface MathExpression<T> extends Expression<T>
     Value<T> evaluate() throws EvaluationException;
 
     /**
-     * Register a function to be used in the evaluation process.
+     * Registers a function to be used in the evaluation process.
      * 
      * @param function
      *            A math function. Might not be <code>null</code>.
@@ -117,21 +116,11 @@ public interface MathExpression<T> extends Expression<T>
     MathExpression<T> withFunction(Function<Value<T>> function);
 
     /**
-     * Register a function to be used in the math operations.
+     * Registers a function to be used in the math operations.
      * 
      * @param function
      *            The class of the function. Might not be <code>null</code>.
      * @return The same {@link MathExpression}'s reference but now with a new function registered.
      */
     MathExpression<T> withFunction(Class<Function<Value<T>>> function);
-
-    /**
-     * Defines a set of variables according its position in the expression. In this case, the expression is parsed and the variables are gather in the
-     * order that them appear in the expression.
-     * 
-     * @param variablesValues
-     *            The variables values.
-     * @return The same {@link MathExpression}'s reference but now with the variables registered.
-     */
-    // MathExpression<T> withVariables(Object ... variablesValues);
 }

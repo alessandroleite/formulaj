@@ -56,7 +56,7 @@ public final class Evaluators
     private static void registerDefaultEvaluators()
     {
         register(MathExpression.class, ExpressionEvaluator.class);
-        register(String.class, ImplictVariableExpressionEvaluator.class);
+        register(String.class, ImplicitVariableExpressionEvaluator.class);
     }
 
     /**

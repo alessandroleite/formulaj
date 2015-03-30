@@ -34,7 +34,6 @@ import formulaj.expression.evaluator.Evaluator;
 import formulaj.expression.evaluator.impl.Evaluators;
 import formulaj.expression.function.Function;
 
-
 public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
 {
     /**
@@ -98,31 +97,31 @@ public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
     }
 
     @Override
-    public <R, T extends Computable<R>> Value<Decimal> evaluate(List<T> arguments)
+    public <R, T extends Computable<R>> Value<Decimal> evaluate(final List<T> arguments)
     {
         checkArguments(arguments);
-        Decimal result = this.eval(transform(arguments));
+        final Decimal result = this.eval(transform(arguments));
         return new Value<Decimal>(result);
     }
 
     /**
-     * This method throws the exception {@link IllegalArgumentException} with the instructions to call this {@link Function} if the number of
+     * This method throws an {@link IllegalArgumentException} with the instructions to call this {@link Function} if the number of
      * function's arguments is incorrect.
      * 
      * @param args
-     *            {@link List} with the arguments passed to the function.
+     *            {@link List} with the arguments passed to the function
      * @param <R>
-     *            The {@link Computable} value type.
+     *            the {@link Computable} value type.
      * @param <T>
-     *            A {@link Computable} argument.
+     *            a {@link Computable} argument
      * @throws IllegalArgumentException
-     *             Exception with the instruction to call this {@link Function}.
+     *             if the function was called with wrong number of arguments.
      */
     protected <R, T extends Computable<R>> void checkArguments(List<T> args)
     {
         StringBuilder message = new StringBuilder();
 
-        if (args == null)
+        if (args == null && this.numberOfArguments > 0)
         {
             message.append(String.format("The function %s requires %s argument%s. But there wasn't any argument.", this.name(),
                     this.numberOfArguments, this.numberOfArguments > 1 ? "s" : ""));
@@ -147,7 +146,7 @@ public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
      *            The {@link Computable} value type.
      * @param <T>
      *            A {@link Computable} argument.
-     * @return An array with the arguments transformed in {@link Decimal}.
+     * @return An array with the arguments transformed into {@link Decimal} type.
      */
     @SuppressWarnings("unchecked")
     protected <R, T extends Computable<R>> E [] transform(List<T> arguments)
@@ -156,7 +155,6 @@ public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
         
         for (Object computable : arguments)
         {
-            // Oh my Gosh, what is this? ;)
             args.add((R) Decimal.from(((Computable<R>) computable).getValue().toString()));
         }
 
@@ -164,12 +162,11 @@ public abstract class FunctionSupport<E> implements Function<Value<Decimal>>
     }
 
     /**
-     * Executes the function.
+     * Executes this function and returns its result.
      * 
      * @param args
-     *            The arguments of the function. It's never <code>null</code> and the its length is always equals to {@link #numberOfArguments}.
-     * @return The value after evaluation of this function.
+     *            the arguments of the function. It's never <code>null</code> and the its length is always equals to {@link #numberOfArguments}.
+     * @return the value after executed this function
      */
     protected abstract Decimal eval(E [] args);
-
 }

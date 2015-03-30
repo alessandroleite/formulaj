@@ -45,7 +45,7 @@ public interface Evaluator<T, V>
     /**
      * Returns a read-only {@link Map} with the {@link Variable}s found in the expression.
      * 
-     * @return A non modifiable {@link Map} with the {@link Variable}s found in the expression.
+     * @return an unmodifiable {@link Map} with the {@link Variable}s found in the expression
      */
     Map<String, Variable<?>> variables();
 

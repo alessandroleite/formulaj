@@ -26,7 +26,7 @@
 
 
 	<description>
-	FormulaJ is a multithreading Java library for evaluating mathematical expressions. It supports +, -, *, ^, and % operators, boolean expressions, 
+	FormulaJ is a multi-threading Java library for evaluating mathematical expressions. It supports +, -, *, ^, and % operators, boolean expressions, 
 	a short expression format (x + 2), and variables. It includes a standard library with 20 mathematical functions, that can delegate unknown functions or symbols. Users can create and use their own custom functions in an easy way.
 	</description>
 
@@ -37,18 +37,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
-	<developers>
-		<developer>
-			<id>alessandro</id>
-			<name>Alessandro Ferreira Leite</name>
-			<email>first-name[dot]last-name[dot]first-name[dot]cc</email>
-			<roles>
-				<role>Architect</role>
-				<role>Developer</role>
-			</roles>
-		</developer>
-	</developers>
 
 	<distributionManagement>
 		<repository>
@@ -76,7 +64,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.9</version>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -89,13 +77,13 @@
 				<version>2.10</version>
 				<configuration>
 					<configLocation>${checkstyle.file}</configLocation>
-					<headerLocation>${license-header-file}</headerLocation>
+					<headerLocation>${license.header}</headerLocation>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.8</version>
 				<inherited>false</inherited>
 				<configuration>
 					<header>${license.header}</header>
@@ -209,7 +197,7 @@
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
 					<encoding>${project.build.sourceEncoding}</encoding>
-					<projectNameTemplate>[groupId]-[artifactId]-[version]</projectNameTemplate>
+					<projectNameTemplate>[groupId]-[version]</projectNameTemplate>
 				</configuration>
 			</plugin>
 

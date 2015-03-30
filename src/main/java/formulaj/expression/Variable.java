@@ -171,14 +171,12 @@ public class Variable<T> implements Computable<Value<T>>
         {
             return true;
         }
-        if (obj == null)
+        
+        if (obj == null || getClass() != obj.getClass())
         {
             return false;
         }
-        if (getClass() != obj.getClass())
-        {
-            return false;
-        }
+        
         Variable<?> other = (Variable<?>) obj;
         if (name == null)
         {

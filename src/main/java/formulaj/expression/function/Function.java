@@ -28,10 +28,11 @@ import formulaj.expression.EvaluationException;
 import formulaj.expression.evaluator.Evaluator;
 
 /**
- * This class is used to create a function.
+ * This class represents a mathematical function. 
  * 
- * @param <V>
- *            The return type of the function.
+ * <p>A function has a name and a return type. In addition, functions are both stateless and side-effect free.  
+ * 
+ * @param <V the function's return type
  */
 public interface Function<V>
 {
@@ -59,19 +60,19 @@ public interface Function<V>
     /**
      * 
      * @param expression
-     *            The expression that represents the function to be executed.
+     *            the expression that represents the function to be executed
      * @param evaluator
-     *            The evaluator to be used in the evaluation.
+     *            the evaluator to be used in the evaluation
      * @param <T>
      *            The type of the value returned by the evaluate and execution of the given expression.
-     * @return Return the function's value after its execution.
+     * @return function return value
      * @throws EvaluationException
-     *             If the expression that represents the function is invalid.
+     *             if the expression that represents the function is invalid
      */
     <T> V evaluate(Expression<T> expression, Evaluator<Expression<T>, V> evaluator) throws EvaluationException;
 
     /**
-     * Returns the value of the function execution.
+     * Executes and returns a value after executed the function with the given {@code arguments}.
      * 
      * @param arguments
      *            The function's arguments.

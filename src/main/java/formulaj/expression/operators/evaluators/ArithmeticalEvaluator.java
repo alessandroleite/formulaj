@@ -41,7 +41,7 @@ public final class ArithmeticalEvaluator implements OperatorEvaluator<Decimal, A
     public <T> Value<Decimal> eval(T leftValue, T rightValue, ArithmeticalOperator operator)
     {
         Decimal nullValue = operator.getNeutralValue();
-        return new Value<Decimal>(operator.evaluate(asDecimal(leftValue, nullValue), asDecimal(rightValue, nullValue)));
+        return new Value<>(operator.evaluate(asDecimal(leftValue, nullValue), asDecimal(rightValue, nullValue)));
     }
 
     /**

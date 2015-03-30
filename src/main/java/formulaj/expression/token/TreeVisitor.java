@@ -95,10 +95,10 @@ public class TreeVisitor<T> implements ExpressionVisitor<T>
     @Override
     public Computable<T> visit(NumberToken<T> number)
     {
-        Value<T> value = new Value<T>((T) Decimal.from(number.getToken().getText()));
+        // Value<T> value = new Value<T>((T) Decimal.from(number.getToken().getText()));
         // Constant<T> constt = new Constant<T>(number.getToken().getClass().getSimpleName(), value);
         // return (Computable<T>) constt;
-        return value;
+        return new Value<T>((T) Decimal.from(number.getToken().getText()));
     }
 
     @Override
@@ -111,7 +111,7 @@ public class TreeVisitor<T> implements ExpressionVisitor<T>
             throw new UndefinedFunctionException(String.format("Undefined function: %s!", functionToken.getName()));
         }
 
-        List<Computable<T>> args = new ArrayList<>();
+		List<Computable<T>> args = new ArrayList<>();
 
         for (ExpressionToken<T, Value<T>> arg : functionToken.getArgs())
         {

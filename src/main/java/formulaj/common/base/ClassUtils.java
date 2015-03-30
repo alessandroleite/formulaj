@@ -20,7 +20,6 @@
  */
 package formulaj.common.base;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -41,6 +40,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import static formulaj.common.base.Throws.throwUncheked;
 
 @SuppressWarnings("rawtypes")
 public final class ClassUtils
@@ -216,9 +217,10 @@ public final class ClassUtils
     }
 
     /**
+     * Filters and returns all concrete classes in the given {@link List}.
      * 
-     * @param classes The classes to be filtered.
-     * @return A {@link List} with only concret classes.
+     * @param classes The classes to be filtered
+     * @return an unmodifiable {@link List} with the concrete classes
      */
     public static List<Class> filterConcreteClasses(List<Class> classes)
     {
@@ -227,6 +229,7 @@ public final class ClassUtils
         for (Iterator<Class> iter = filtered.iterator(); iter.hasNext();)
         {
             Class<?> clazz = iter.next();
+            
             if (clazz.isInterface() || Modifier.isAbstract(clazz.getModifiers()))
             {
                 iter.remove();
@@ -283,13 +286,14 @@ public final class ClassUtils
      */
     private static List<Class> findClassesInsideDir(File directory, String packageName) throws ClassNotFoundException
     {
-        List<Class> classes = new ArrayList<Class>();
+        List<Class> classes = new ArrayList<>();
+
         if (!directory.exists())
         {
             return classes;
         }
 
-        List<File> files = new ArrayList<File>(Arrays.asList(directory.listFiles()));
+        List<File> files = new ArrayList<>(Arrays.asList(directory.listFiles()));
         while (!files.isEmpty())
         {
             File file = files.get(0);
@@ -322,30 +326,33 @@ public final class ClassUtils
     public static List<Class> findClassesInsideJar(File jar, String packageName) throws URISyntaxException, IOException,
             ClassNotFoundException
     {
-        ZipFile zf = new ZipFile(jar.getAbsoluteFile());
-        Enumeration e = zf.entries();
-
-        List<Class> classes = new ArrayList<Class>();
-        while (e.hasMoreElements())
+        try (ZipFile zf = new ZipFile(jar.getAbsoluteFile()))
         {
-            ZipEntry ze = (ZipEntry) e.nextElement();
-            Class clazz = null;
-            try
-            {
-                clazz = fileNameToClass(ze.getName(), packageName);
-            }
-            catch (ClassNotFoundException | NoClassDefFoundError ex)
-            {
-                Logger.getLogger(ClassUtils.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
-            }
+            Enumeration e = zf.entries();
 
-            if (clazz != null)
+            List<Class> classes = new ArrayList<Class>();
+            while (e.hasMoreElements())
             {
-                classes.add(clazz);
+                ZipEntry ze = (ZipEntry) e.nextElement();
+                
+                Class clazz = null;
+                
+                try
+                {
+                    clazz = fileNameToClass(ze.getName(), packageName);
+                }
+                catch (ClassNotFoundException | NoClassDefFoundError ex)
+                {
+                    Logger.getLogger(ClassUtils.class.getName()).log(Level.WARNING, ex.getMessage(), ex);
+                }
+
+                if (clazz != null)
+                {
+                    classes.add(clazz);
+                }
             }
+            return classes;
         }
-        zf.close();
-        return classes;
     }
 
     /**
@@ -358,6 +365,7 @@ public final class ClassUtils
     private static Class fileNameToClass(String fileName, String packageName) throws ClassNotFoundException
     {
         String path = packageName.replaceAll(REGEX_DOT, FILE_SEPARATOR);
+        
         if (fileName.contains(path) && fileName.endsWith(CLASS_SUFFIX))
         {
             return Class.forName(fileName.substring(fileName.indexOf(path), fileName.length() - CLASS_SUFFIX.length()).replaceAll(FILE_SEPARATOR,
@@ -456,7 +464,6 @@ public final class ClassUtils
 
         if (classLoader != null)
         {
-
             String path = packageName.replace('.', '/');
             Enumeration<URL> resources = classLoader.getResources(path);
 
@@ -525,15 +532,15 @@ public final class ClassUtils
     }
 
     /**
-     * Create a instance of a given class.
+     * Creates and returns an instance of a given class.
      * 
      * @param fullClassName
-     *            The name of the class to be instantiate.
+     *            class to instantiate
      * @param args
-     *            Arguments to use when invoking this constructor
+     *            arguments to use when invoking the constructor
      * @param <T>
-     *            The type of the given class.
-     * @return An instance of the given class. Can be <code>null</code> if the class wasn't found.
+     *            the type of the given class
+     * @return an instance of the given class. It is <code>null</code> when the class is unavailable
      */
     @SuppressWarnings({ "unchecked" })
     public static <T> T newInstanceForName(String fullClassName, Object... args)
@@ -563,9 +570,11 @@ public final class ClassUtils
     public static <T> T newInstanceForName(Class<T> clazz, Object... args)
     {
         T instance = null;
+        
         if (args == null || args.length == 0)
         {
             Constructor<T> constructor;
+            
             try
             {
                 constructor = clazz.getConstructor();
@@ -574,7 +583,7 @@ public final class ClassUtils
             }
             catch (NoSuchMethodException | SecurityException | InvocationTargetException | IllegalAccessException | InstantiationException e)
             {
-                throw new RuntimeException(e.getMessage(), e);
+                throwUncheked(e);
             }
         }
         else
@@ -582,6 +591,7 @@ public final class ClassUtils
             external: for (Constructor constructor : clazz.getConstructors())
             {
                 Class[] parameterTypes = constructor.getParameterTypes();
+                
                 if (parameterTypes != null && parameterTypes.length == args.length)
                 {
                     for (int i = 0; i < parameterTypes.length; i++)
@@ -599,11 +609,12 @@ public final class ClassUtils
                     }
                     catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
                     {
-                        throw new RuntimeException(e.getMessage(), e);
+                        throwUncheked(e);
                     }
                 }
             }
         }
+        
         return instance;
     }
 }

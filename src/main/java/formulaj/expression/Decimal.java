@@ -27,13 +27,15 @@ import java.math.RoundingMode;
 import java.util.Collection;
 
 /**
- * 
- * Represent an immutable number. The number may have a decimal portion, or it may not. It is build on top of what's available from the
- * {@link BigDecimal} class which help us avoid floating-point types and its many pitfalls. <br />
- * 
+ *
+ * <p>
+ * This class represents an immutable number. The number may have a decimal portion, or it may not. It is build on top of what's available from the
+ * {@link BigDecimal} class which helps us avoid floating-point types and its many pitfalls.
+ *
+ * <p>
  * This class is especially suited for representing money. For the most common operations, {@link Decimal} uses {@link BigDecimal} to perform
  * calculations, and is thus not subject to the rounding errors which are very common when floating-point primitives are used.
- * 
+ *
  * {@link Decimal} objects are immutable. Many operations in this class return a new {@link Decimal} object.
  */
 public final class Decimal extends Number implements Comparable<Decimal>, Serializable
@@ -75,7 +77,7 @@ public final class Decimal extends Number implements Comparable<Decimal>, Serial
 
     /**
      * @param aValue
-     *            The value to be assigned to this class. Might not be <code>null</code>.
+     *            The value to be assigned to this class. It might not be <code>null</code>.
      */
     public Decimal(BigDecimal aValue)
     {
@@ -767,5 +769,23 @@ public final class Decimal extends Number implements Comparable<Decimal>, Serial
         }
 
         return sum;
+    }
+
+    /**
+     * Converts and returns a set of {@link Number}s into as a set of {@link Decimal}s.
+     * 
+     * @param numbers the numbers to convert to the {@link Decimal} type. It might not be <code>null</code>
+     * @return a non-null array with the converted values
+     */
+    public static Decimal[] valueOf(Number ... numbers)
+    {
+        Decimal[] result = new Decimal[numbers.length];
+        
+        for (int i = 0; i < numbers.length; i++)
+        {
+            result[i] = new Decimal(numbers[i].toString());
+        }
+        
+        return result;
     }
 }

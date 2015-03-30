@@ -38,7 +38,7 @@ public abstract class AST
      * @param root
      *            The token that if root of this tree. Might not be <code>null</code>.
      */
-    public AST(Token root)
+    protected AST(Token root)
     {
         this.token = Objects.requireNonNull(root);
     }

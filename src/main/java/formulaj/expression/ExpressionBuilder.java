@@ -21,7 +21,7 @@
 package formulaj.expression;
 
 import formulaj.MathExpression;
-import formulaj.expression.evaluator.impl.ImplictVariableExpressionEvaluator;
+import formulaj.expression.evaluator.impl.ImplicitVariableExpressionEvaluator;
 
 public final class ExpressionBuilder
 {
@@ -51,7 +51,7 @@ public final class ExpressionBuilder
     public static <T> T evaluate(String expression, Object... variableValues) throws EvaluationException
     {
         MathExpression<T> newMathExpression = ExpressionBuilder.<T> newMathExpression(expression);
-        Value<T> value = newMathExpression.evaluate(new ImplictVariableExpressionEvaluator<T>(variableValues));
+        Value<T> value = newMathExpression.evaluate(new ImplicitVariableExpressionEvaluator<T>(variableValues));
 
         return value.getValue();
     }

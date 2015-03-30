@@ -26,7 +26,7 @@ import formulaj.expression.operators.ArithmeticalOperator;
 import formulaj.expression.operators.evaluators.ArithmeticalEvaluator;
 
 
-public abstract class AbstractArithmeticalOperator extends AbstractOperator<Decimal> implements ArithmeticalOperator
+abstract class AbstractArithmeticalOperator extends AbstractOperator<Decimal> implements ArithmeticalOperator
 {
 
     /**
@@ -43,7 +43,7 @@ public abstract class AbstractArithmeticalOperator extends AbstractOperator<Deci
      * @param unary
      *            Flag that indicates if the operator is a unary operator.
      * @param neutralElement
-     *            The neutral element of the {@link greenapi.gpi.metric.expression.Operator.Operator}.
+     *            The neutral element of the {@link formulaj.expression.operators.Operator}.
      */
     public AbstractArithmeticalOperator(String symbol, int precedence, boolean unary, Decimal neutralElement)
     {
@@ -58,7 +58,7 @@ public abstract class AbstractArithmeticalOperator extends AbstractOperator<Deci
      * @param precedence
      *            The precedence of the operator.
      * @param neutralElement
-     *            The neutral element of the {@link greenapi.gpi.metric.expression.Operator.Operator}.
+     *            The neutral element of the {@link formulaj.expression.operators.Operator}.
      */
     public AbstractArithmeticalOperator(String symbol, int precedence, Decimal neutralElement)
     {

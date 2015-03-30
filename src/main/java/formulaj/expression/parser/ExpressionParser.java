@@ -220,15 +220,18 @@ public class ExpressionParser<T> extends Parser
         boolean minusOrPlusSign = (LT(1).getText().equals("+") || LT(1).getText().equals("-")) && 
                 (LA(2) == ATOM.getId() || LA(2) == IDENT.getId() || newExpressionOrEOT);
 
-        if (minusOrPlusSign && this.operands.isEmpty())
-        {
-            return true;
-        }
-        else if (minusOrPlusSign && !this.operands.isEmpty() && this.functionArgs)
-        {
-            return true;
-        }
-        return false;
+//        if (minusOrPlusSign && this.operands.isEmpty())
+//        {
+//            return true;
+//        }
+//        else if (minusOrPlusSign && !this.operands.isEmpty() && this.functionArgs)
+//        {
+//            return true;
+//        }
+//        
+//        return false;
+        
+        return (minusOrPlusSign && this.operands.isEmpty()) ? true : (minusOrPlusSign && !this.operands.isEmpty() && this.functionArgs);
     }
 
     /**
@@ -355,7 +358,7 @@ public class ExpressionParser<T> extends Parser
             }
             else
             {
-                throw new RecognitionException("found " + LT(1) + " that was not expected!");
+                throw new RecognitionException("unexpected " + LT(1) + "!");
             }
         }
     }
@@ -456,7 +459,6 @@ public class ExpressionParser<T> extends Parser
         final boolean unaryPlus = LA(1) == UNARY.getId() && operands.isEmpty();
         if (LA(1) == OP.getId() && (LA(2) == ATOM.getId() || LA(2) == IDENT.getId() || LA(2) == LPARENTHESIS.getId()) || !unaryPlus)
         {
-
             if (unaryPlus)
             {
                 match(UNARY.getId());
@@ -546,7 +548,6 @@ public class ExpressionParser<T> extends Parser
         if (speculate_function_call())
         {
             this.operands.push(function_call());
-            return;
         }
         else if (isUnary())
         {
@@ -559,24 +560,20 @@ public class ExpressionParser<T> extends Parser
         else if (isHighPrecedenceOperator())
         {
             expression();
-            return;
         }
         else if (isAtomTerm())
         {
             this.operands.push(atom());
-            return;
         }
         else if (LA(1) == IDENT.getId())
         {
             if (speculate_function_call())
             {
                 operands.push(function_call());
-                return;
             }
             else
             {
                 operands.push(ident());
-                return;
             }
         }
         else if (LA(1) == UNARY.getId())
@@ -593,7 +590,6 @@ public class ExpressionParser<T> extends Parser
 
             UnaryToken<T> unary = new UnaryToken<>(token, (ExpressionToken<T, Value<T>>) this.operands.pop());
             this.operands.push(unary);
-            return;
         }
         else
         {

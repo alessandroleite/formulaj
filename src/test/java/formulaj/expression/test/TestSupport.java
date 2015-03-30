@@ -26,7 +26,7 @@ import java.util.List;
 
 import formulaj.expression.Decimal;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 
 
@@ -158,7 +158,7 @@ public abstract class TestSupport
     
     
     /**
-     * Prepares this test resources.
+     * Prepares this test
      */
     @Before
     public void setUp()
@@ -235,6 +235,7 @@ public abstract class TestSupport
 
         // function call
         mathematicalFunctionOperations.add(new Expression("abs(-a)", 7));
+        mathematicalFunctionOperations.add(new Expression("sum(1,2,3,4,5,6,7,8,9,10)", 55));
 
         // nested functions
         mathematicalFunctionOperations.add(new Expression("max(2, abs (-(3)) )", 3));

@@ -5,15 +5,15 @@ FormulaJ [![Build Status](https://travis-ci.org/alessandroleite/formulaj.png?bra
 
 FormulaJ is a multithreading Java library for evaluating mathematical expressions. It supports +, -, *, ^, and % operators, boolean expressions, a short expression format (2x + 3y), and variables. It includes a standard library with 20 mathematical functions, that can delegate unknown functions or symbols. Users can create and use their own custom functions in an easy way.
 
-
 <h2 id="features">Features</h2>
 
-  * Variables can be used in expressions.
-  * FormulaJ supports the usage of implict variables. 
-  * FormulaJ comes with a standard library with 20 mathematical functions.
-  * Users can create and use their own custom functions.
-  * Users can provide and use their own custom expression evalutor.
-  * An expression can be associated to a variable; e.g. c = a * b.
+  * Expressions may have variables
+  * Supports the use of implicit variables; e.g., sum ("x + y * z ^ x", 1, 2, 3)
+  * Supports nested functions
+  * FormulaJ comes with a standard library with 20 mathematical functions
+  * Users can create and use their own custom functions
+  * Users can provide and use their own custom expression evaluator
+  * An expression can be associated to a variable; e.g., c = a * b 
 
 
 <h2 id="usage">How to use it?</h2>
@@ -23,7 +23,6 @@ FormulaJ is a multithreading Java library for evaluating mathematical expression
 	See instructions in [Maven Repository](https://github.com/alessandroleite/maven-repository)
 
 2. ##### Usage
-
 
 	ExpressionBuilder.<Decimal> newMathExpression("a * b")
 	                 .withVariable("a", Decimal.from(7))
@@ -42,15 +41,14 @@ The variables are resolved according with their position and their name. If a va
 
   * Functions are instances of _formulaj.expression.function.Function_.
   * The return of a function is a _formulaj.expression.Decimal_.
-  * To create a function you can extended the class _formulaj.expression.function.math.FunctionSupport_ and write the code in the method __eval__. For instance:
+  * To create a function you can extended the class _formulaj.expression.function.math.FunctionSupport_ and write its code in the method __eval__. For instance:
 
-	public class MyFunction extends FunctionSupport<Decimal>
+	public class Times extends FunctionSupport<Decimal>
 	{
-
 		/**
-		* Creates an instance of the {@link MyFunction} function.
+		* Creates an object of the {@link Times} function.
 		*/
-		public MyFunction()
+		public Times()
 		{
 		   super(2);
 		}
@@ -65,10 +63,9 @@ The variables are resolved according with their position and their name. If a va
 Using the custom function
 -------
     
-    Decimal value = ExpressionBuilder.<Decimal> newMathExpression("myfunction(2,3)")
-             .withFunction(new MyFunction())
+    Decimal value = ExpressionBuilder.<Decimal> newMathExpression("times(2,3)")
+             .withFunction(new Times())
              .evaluate();
-
 
 <h2 id="contribute">How to contribute</h2>
 
@@ -80,16 +77,16 @@ To report an issue or request a new feature you just have to open an issue in th
 
 To contribute, follow this steps:
 
- 1. Fork this project.
- 2. Add the progress label to the issue you want to solve (add a comments to say that you work on it).
- 3. Create a topic branch for this issue.
- 4. When you have finish your work, open a pull request (use the issue title for the pull request title).
+ 1. Fork this project
+ 2. Add the progress label to the issue you want to solve (add a comments to say that you work on it)
+ 3. Create a topic branch for this issue
+ 4. When you have finish your work, open a pull request (use the issue title for the pull request title)
 
-Comments and contributions and comments are welcome.
+Comments and contributions are welcome.
 
 <h2 id="license">License</h2>
 
-Copyright (C) 2013 Contributors.
+Copyright (C) 2013-2015 Contributors.
  
 FormulaJ is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -105,4 +102,3 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/alessandroleite/formulaj/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-	
