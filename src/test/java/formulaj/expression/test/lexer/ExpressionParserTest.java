@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,16 +35,17 @@ import formulaj.expression.token.NumberToken;
 import formulaj.expression.token.UnaryToken;
 import formulaj.expression.token.VarToken;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class ExpressionParserTest extends TestSupport
 {
     /**
      * Tests mathematical operations with or without variables.
      * 
-     * @throws RecognitionException
-     *             If it's an invalid expression.
+     * @throws RecognitionException when the expression is invalid
      */
     @Test
     public void must_be_mathematical_expressions() throws RecognitionException
@@ -59,17 +58,16 @@ public class ExpressionParserTest extends TestSupport
             MathNodeToken<BigDecimal, BinaryOperatorToken<BigDecimal>> stat = new ExpressionParser<BigDecimal>(new ExpressionLexer(
                     binaryOperationExpressions.get(i).getExpression())).stat();
 
-            Assert.assertNotNull(stat);
+            assertNotNull(stat);
             assertEquals(new Class[] {BinaryOperatorToken.class, UnaryToken.class, NumberToken.class, VarToken.class}, stat.getClass());
         }
     }
     
 
     /**
-     * Tests the function call expressions.
+     * Tests expressions with function calls.
      * 
-     * @throws RecognitionException
-     *             If it's an invalid expression.
+     * @throws RecognitionException when the expression is invalid
      */
     @Test
     public void must_be_mathematical_function_call_expressions() throws RecognitionException
@@ -78,7 +76,9 @@ public class ExpressionParserTest extends TestSupport
         {
             MathNodeToken<BigDecimal, BinaryOperatorToken<BigDecimal>> stat = new ExpressionParser<BigDecimal>(new ExpressionLexer(
                     getFunctionExpression(i))).stat();
-            Assert.assertNotNull(stat);
+            
+            assertNotNull(stat);
+            
             Assert.assertEquals(FunctionToken.class, stat.getClass());
         }
     }
@@ -97,16 +97,14 @@ public class ExpressionParserTest extends TestSupport
             MathNodeToken<BigDecimal, Variable<BigDecimal>> stat = new ExpressionParser<BigDecimal>(new ExpressionLexer(
                     getAssignmentOperationExpression(i))).stat();
 
-            Assert.assertNotNull(stat);
+            assertNotNull(stat);
             Assert.assertEquals(AssignToken.class, stat.getClass());
         }
     }
 
     /**
-     * Tests the parser of invalid expressions.
-     * 
-     * @throws RecognitionException
-     *             If it's an invalid expression.
+     * Tests the parsing of invalid expressions.
+     * @throws RecognitionException when the expression is invalid.
      */
     @Test(expected = RecognitionException.class)
     public void must_be_invalid_mathematical_operation() throws RecognitionException

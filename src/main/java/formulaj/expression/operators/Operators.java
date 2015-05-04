@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,7 +68,7 @@ public final class Operators
      */
     public static <R> void register(Operator<R> operator)
     {
-        OPERATORS.put(Strings.checkArgumentIsNotNullOrEmpty(operator.symbol()), operator);
+        OPERATORS.put(Strings.checkIfArgumentIsNotNullOrEmpty(operator.symbol()), operator);
 
     }
 

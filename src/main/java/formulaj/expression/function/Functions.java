@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,7 +70,7 @@ public final class Functions
      */
     public static <V> Function<V> register(Function<V> function)
     {
-        return FUNCTIONS.put(Strings.checkArgumentIsNotNullOrEmpty(function.name()), function);
+        return FUNCTIONS.put(Strings.checkIfArgumentIsNotNullOrEmpty(function.name()), function);
     }
 
     /**

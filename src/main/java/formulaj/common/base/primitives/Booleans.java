@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,11 +34,10 @@ public final class Booleans
     }
 
     /**
-     * Convert a boolean wrapper value to a primitive value considering that a <code>null</code> is a <code>false</code> primitive value.
+     * Converts a boolean wrapper value to a primitive value considering that a <code>null</code> is a <code>false</code> primitive value.
      * 
-     * @param value
-     *            The wrapper' value to be converted to a primitive value.
-     * @return The wrapper value converted to a primitive boolean value.
+     * @param value the wrapper' value to be converted to a primitive value
+     * @return the wrapper value converted to a primitive boolean value
      */
     public static boolean valueOf(Boolean value)
     {
@@ -98,10 +95,8 @@ public final class Booleans
     /**
      * Converts a given value to {@link Boolean}.
      * 
-     * @param value
-     *            The value to be converted to {@link Boolean}.
-     * @param <E>
-     *            The type of the given value
+     * @param value the value to be converted to {@link Boolean}.
+     * @param <E> the type of the given value
      * @return The value converted to <code>null</code>. If <code>null</code>, the return is always <code>false</code>.
      * @see #valueOf(Boolean)
      * @see #valueOf(Number)

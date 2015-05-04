@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +55,7 @@ public abstract class Lexer
      */
     public Lexer(String expression)
     {
-        this.input = Strings.checkArgumentIsNotNullOrEmpty(expression, "The expression might not be null or empty!");
+        this.input = Strings.checkIfArgumentIsNotNullOrEmpty(expression, "The expression might not be null or empty!");
         c = input.charAt(p);
     }
 

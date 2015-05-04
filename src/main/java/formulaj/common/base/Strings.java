@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,13 +46,11 @@ public final class Strings
     }
 
     /**
-     * Format a {@link Double} value as percentage.
+     * Formats a {@link Double} value as percentage.
      * 
-     * @param val
-     *            The value to be formatted.
-     * @param multi
-     *            <code>true</code> if the value must be multiplied by 100.
-     * @return The value formated as a {@link String} percentage value.
+     * @param val the value to be formatted.
+     * @param multi <code>true</code> if the value must be multiplied by 100
+     * @return the value formated as a {@link String} percentage value
      */
     public static String format(double val, boolean multi)
     {
@@ -65,11 +61,10 @@ public final class Strings
     }
 
     /**
-     * Format a {@link Double} value as percentage value.
+     * Formats a {@link Double} value as percentage value.
      * 
-     * @param val
-     *            The value to be formatted.
-     * @return The value formated as a {@link String} percentage value.
+     * @param val the value to be formatted.
+     * @return the value formated as a {@link String} percentage value.
      */
     public static String format(double val)
     {
@@ -77,33 +72,28 @@ public final class Strings
     }
 
     /**
-     * Check if a given {@link String} is not <code>null</code> or empty and return the same {@link String}. If the value is <code>null</code> or
+     * Checks if a given {@link String} is <code>null</code> or empty and return the same {@link String}. If the value is <code>null</code> or
      * empty this method throws the exception {@link IllegalArgumentException}.
      * 
-     * @param value
-     *            The {@link String} to be checked.
-     * @return The given {@link String}.
-     * @throws IllegalArgumentException
-     *             if the value is <code>null</code> or empty.
+     * @param value the {@link String} to be checked
+     * @return the given {@link String}
+     * @throws IllegalArgumentException if the {@code value} is <code>null</code> or empty
      */
-    public static String checkArgumentIsNotNullOrEmpty(String value)
+    public static String checkIfArgumentIsNotNullOrEmpty(String value)
     {
-        return checkArgumentIsNotNullOrEmpty(value, null);
+        return checkIfArgumentIsNotNullOrEmpty(value, null);
     }
 
     /**
-     * Check if a given {@link String} is not <code>null</code> or empty and return the same {@link String}. If the value is <code>null</code> or
+     * Checks if a given {@link String} is <code>null</code> or empty and return the same {@link String}. If the value is <code>null</code> or
      * empty this method throws the exception {@link IllegalArgumentException}.
      * 
-     * @param value
-     *            The {@link String} to be checked.
-     * @param message
-     *            The message to be used in the {@link IllegalArgumentException}.
-     * @return The given {@link String}.
-     * @throws IllegalArgumentException
-     *             if the value is <code>null</code> or empty.
+     * @param value {@link String} to be checked
+     * @param message message to be used in the {@link IllegalArgumentException}
+     * @return the given {@link String}
+     * @throws IllegalArgumentException if the {@code value} is <code>null</code> or empty
      */
-    public static String checkArgumentIsNotNullOrEmpty(final String value, final String message)
+    public static String checkIfArgumentIsNotNullOrEmpty(final String value, final String message)
     {
         if (value == null || value.trim().isEmpty())
         {

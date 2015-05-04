@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,7 +65,7 @@ public final class MathExpressionImpl<T> implements MathExpression<T>
      */
     public MathExpressionImpl(String mathExpression)
     {
-        this(Strings.checkArgumentIsNotNullOrEmpty(mathExpression).trim(), Evaluators.<Expression<T>, Value<T>> get(MathExpression.class));
+        this(Strings.checkIfArgumentIsNotNullOrEmpty(mathExpression).trim(), Evaluators.<Expression<T>, Value<T>> get(MathExpression.class));
     }
 
     /**

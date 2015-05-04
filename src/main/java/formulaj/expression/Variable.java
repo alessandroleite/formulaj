@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,7 +45,7 @@ public class Variable<T> implements Computable<Value<T>>
      */
     public Variable(String varName)
     {
-        this.name = Strings.checkArgumentIsNotNullOrEmpty(varName);
+        this.name = Strings.checkIfArgumentIsNotNullOrEmpty(varName);
 
         if (!isValidName(varName))
         {
@@ -201,7 +199,7 @@ public class Variable<T> implements Computable<Value<T>>
      */
     public static boolean isValidName(String name)
     {
-        char[] letters = Strings.checkArgumentIsNotNullOrEmpty(name).trim().toCharArray();
+        char[] letters = Strings.checkIfArgumentIsNotNullOrEmpty(name).trim().toCharArray();
 
         for (int i = 0; i < letters.length; i++)
         {

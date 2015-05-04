@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2013 Contributors.
- *
- * This file is part of FormulaJ.
+ * Copyright (C) 2013 - 2015 Contributors.
  *
  * FormulaJ is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,9 +32,8 @@ public final class Doubles
     /**
      * Converts a {@link String} to {@link Double}. In case of wrong value, the return is <code>null</code>.
      * 
-     * @param value
-     *            The value to be converted to {@link Double}
-     * @return The value converted to {@link Double} or <code>null</code>
+     * @param value the value to be converted to {@link Double}
+     * @return the value converted to {@link Double} or <code>null</code>
      */
     public static double valueOf(String value)
     {
